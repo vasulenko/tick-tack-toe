@@ -15,8 +15,24 @@
     background-color: white;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+.turnControll {
+    /*width: 100%;*/
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.turnControll p:nth-child(1) {
+    margin-right: 10%;
+}
+
+.turnControll p:nth-child(2) {
+    margin-left: 10%;
 }
 
 .title {
@@ -24,10 +40,6 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-}
-
-.button {
-    cursor: pointer;
 }
 
 .desk {
