@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tick-tack toe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title">
+            <h1 id="title">Start?</h1>
+            <button id="startBtn" class="waves-effect waves-light btn cyan pulse" onclick="start()">GO!</button>
+        </div>
+        <div class="desk z-depth-3">
+            <div class="row1">
+                <div class="root cell1 z-depth-3">
+                    <i class="material-icons md-48">clear</i>
+                </div>
+                <div class="root cell2"></div>
+                <div class="root cell3"></div>
+            </div>
+            <div class="row2">
+                <div class="root cell4"></div>
+                <div class="root cell5 z-depth-3"><i class="material-icons md-48">clear</i></div>
+                <div class="root cell6"></div>
+            </div>
+            <div class="row3">
+                <div class="root cell7"></div>
+                <div class="root cell8"></div>
+                <div class="root cell9 z-depth-3"><i class="material-icons md-48">clear</i></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
