@@ -214,7 +214,7 @@ var winRow = function(f, s, t) {
 }
 var finish = function(turn) {
     setTimeout(() => {
-        $('#title')[0].innerHTML = turn == 'ai' ? "AI win!" : 'Player win!';
+        $('#title')[0].innerHTML = turn == 'ai' ? "AI win!" : turn == "pl" ? 'Player win!' : turn + " win!";
         offListen();
         state = [null, null, null, null, null, null, null, null, null];
     }, 100);
