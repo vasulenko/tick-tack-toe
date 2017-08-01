@@ -167,7 +167,7 @@ var choise = function(num) {
         if (state.indexOf(null) == -1) { finish("No one"); return; };
         turn == "ai" ? turn = "pl" : turn = "ai";
 
-        $('#title')[0].innerHTML = turn == 'ai' ? "AI is turn now." : "Player, its your turn!";
+        $('#title')[0].innerHTML = turn == 'ai' ? "AI is turn now." : "Player turn!";
         if (turn == "ai") aiTurn();
     }
 }
