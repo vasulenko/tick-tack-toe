@@ -20,11 +20,11 @@
 }
 
 .turnControll {
-    /*width: 100%;*/
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 2%;
 }
 
 .turnControll p:nth-child(1) {
@@ -35,7 +35,16 @@
     margin-left: 10%;
 }
 
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
+
 .title {
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
