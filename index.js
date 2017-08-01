@@ -47,24 +47,34 @@ var aiTurn = function() {
         if (state[7] == 'pl' && state[8] == null) { choise(9); return true; }
     }
     if (state[4] == 'ai' && (state[1] == 'pl' || state[3] == 'pl' || state[5] == 'pl' || state[7] == 'pl')) {
-        if (state[1] == 'pl' && state[0] == 'ai') { choise(7); return true; }
-        if (state[1] == 'pl' && state[2] == 'ai') { choise(8); return true; }
-        if (state[3] == 'pl' && state[0] == 'ai') { choise(3); return true; }
-        if (state[3] == 'pl' && state[6] == 'ai') { choise(8); return true; }
-        if (state[5] == 'pl' && state[2] == 'ai') { choise(1); return true; }
-        if (state[5] == 'pl' && state[8] == 'ai') { choise(6); return true; }
-        if (state[7] == 'pl' && state[6] == 'ai') { choise(1); return true; }
-        if (state[7] == 'pl' && state[8] == 'ai') { choise(3); return true; }
+
+        if (state[1] == 'pl' && state[0] == 'ai' && state[6] == null) { choise(7); return true; }
+        if (state[1] == 'pl' && state[2] == 'ai' && state[8] == null) { choise(8); return true; }
+        if (state[3] == 'pl' && state[0] == 'ai' && state[4] == null) { choise(3); return true; }
+        if (state[3] == 'pl' && state[6] == 'ai' && state[7] == null) { choise(8); return true; }
+        if (state[5] == 'pl' && state[2] == 'ai' && state[0] == null) { choise(1); return true; }
+        if (state[5] == 'pl' && state[8] == 'ai' && state[5] == null) { choise(6); return true; }
+        if (state[7] == 'pl' && state[6] == 'ai' && state[0] == null) { choise(1); return true; }
+        if (state[7] == 'pl' && state[8] == 'ai' && state[2] == null) { choise(3); return true; }
     }
-    if (state[4] == 'pl') {
+    if (state[4] == 'pl' && (state[0] == 'pl' || state[2] == 'pl' || state[6] == 'pl' || state[8] == 'pl')) {
+
         if (state[0] == null) { choise(1); return true; }
         if (state[2] == null) { choise(3); return true; }
         if (state[6] == null) { choise(7); return true; }
         if (state[8] == null) { choise(9); return true; }
     }
-    if (state.indexOf(null) == -1) {
+    if (state[4] == 'pl') {
+
+        if (state[0] == null) { choise(1); return true; }
+        if (state[2] == null) { choise(3); return true; }
+        if (state[6] == null) { choise(7); return true; }
+        if (state[8] == null) { choise(9); return true; }
+    }
+    if (state.indexOf(null) !== -1) {
         choise(state.indexOf(null) + 1);
     }
+    return false;
 
 }
 var winCheck = function() {
@@ -156,7 +166,8 @@ var choise = function(num) {
     } else {
         if (state.indexOf(null) == -1) { finish("No one"); return; };
         turn == "ai" ? turn = "pl" : turn = "ai";
-        $('#title')[0].innerHTML = turn + " is turn now";
+
+        $('#title')[0].innerHTML = turn == 'ai' ? "AI is turn now." : "Player, its your turn!";
         if (turn == "ai") aiTurn();
     }
 }
@@ -203,7 +214,7 @@ var winRow = function(f, s, t) {
 }
 var finish = function(turn) {
     setTimeout(() => {
-        $('#title')[0].innerHTML = turn + ' win !';
+        $('#title')[0].innerHTML = turn == 'ai' ? "AI win!" : 'Player win!';
         offListen();
         state = [null, null, null, null, null, null, null, null, null];
     }, 100);
