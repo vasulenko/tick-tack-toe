@@ -1,5 +1,4 @@
 var turn = 'ai';
-
 var state = [null, null, null, null, null, null, null, null, null];
 var start = function() {
     addListen();
@@ -47,7 +46,6 @@ var aiTurn = function() {
         if (state[7] == 'pl' && state[8] == null) { choise(9); return true; }
     }
     if (state[4] == 'ai' && (state[1] == 'pl' || state[3] == 'pl' || state[5] == 'pl' || state[7] == 'pl')) {
-
         if (state[1] == 'pl' && state[0] == 'ai' && state[6] == null) { choise(7); return true; }
         if (state[1] == 'pl' && state[2] == 'ai' && state[8] == null) { choise(8); return true; }
         if (state[3] == 'pl' && state[0] == 'ai' && state[4] == null) { choise(3); return true; }
@@ -58,13 +56,6 @@ var aiTurn = function() {
         if (state[7] == 'pl' && state[8] == 'ai' && state[2] == null) { choise(3); return true; }
     }
     if (state[4] == 'pl' && (state[0] == 'pl' || state[2] == 'pl' || state[6] == 'pl' || state[8] == 'pl')) {
-
-        if (state[0] == null) { choise(1); return true; }
-        if (state[2] == null) { choise(3); return true; }
-        if (state[6] == null) { choise(7); return true; }
-        if (state[8] == null) { choise(9); return true; }
-    }
-    if (state[4] == 'pl') {
 
         if (state[0] == null) { choise(1); return true; }
         if (state[2] == null) { choise(3); return true; }
@@ -166,7 +157,6 @@ var choise = function(num) {
     } else {
         if (state.indexOf(null) == -1) { finish("No one"); return; };
         turn == "ai" ? turn = "pl" : turn = "ai";
-
         $('#title')[0].innerHTML = turn == 'ai' ? "AI is turn now." : "Player turn!";
         if (turn == "ai") aiTurn();
     }
@@ -220,42 +210,16 @@ var finish = function(turn) {
     }, 100);
 }
 var addListen = function() {
-    $(".cell1")[0].onclick = function() {
-        choise(1);
+    for (let i = 1; i < 10; i++) {
+        $(`.cell${i}`)[0].onclick = function() {
+            choise(i);
+        }
     }
-    $(".cell2")[0].onclick = function() {
-        choise(2);
-    }
-    $(".cell3")[0].onclick = function() {
-        choise(3);
-    }
-    $(".cell4")[0].onclick = function() {
-        choise(4);
-    }
-    $(".cell5")[0].onclick = function() {
-        choise(5);
-    }
-    $(".cell6")[0].onclick = function() {
-        choise(6);
-    }
-    $(".cell7")[0].onclick = function() {
-        choise(7);
-    }
-    $(".cell8")[0].onclick = function() {
-        choise(8);
-    }
-    $(".cell9")[0].onclick = function() {
-        choise(9);
-    }
+
 }
 var offListen = function() {
-    $(".cell1")[0].onclick = function() {}
-    $(".cell2")[0].onclick = function() {}
-    $(".cell3")[0].onclick = function() {}
-    $(".cell4")[0].onclick = function() {}
-    $(".cell5")[0].onclick = function() {}
-    $(".cell6")[0].onclick = function() {}
-    $(".cell7")[0].onclick = function() {}
-    $(".cell8")[0].onclick = function() {}
-    $(".cell9")[0].onclick = function() {}
+    for (let i = 1; 1 < 10; i++) {
+        $(`.cell${i}`)[0].onclick = function() {}
+    }
+
 }
