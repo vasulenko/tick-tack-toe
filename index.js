@@ -1,5 +1,31 @@
-var turn = 'ai';
+var turn;
 var state = [null, null, null, null, null, null, null, null, null];
+var strategy = [
+    [0, 1, 2],
+    [1, 2, 0],
+    [0, 2, 1],
+    [0, 3, 6],
+    [0, 6, 3],
+    [3, 6, 0],
+    [1, 4, 7],
+    [1, 7, 4],
+    [4, 7, 1],
+    [2, 5, 8],
+    [2, 8, 5],
+    [5, 8, 2],
+    [3, 4, 5],
+    [3, 5, 4],
+    [4, 5, 3],
+    [6, 7, 8],
+    [6, 8, 7],
+    [7, 8, 6],
+    [0, 4, 8],
+    [0, 8, 4],
+    [4, 8, 0],
+    [2, 4, 6],
+    [2, 6, 4],
+    [4, 6, 2]
+]
 var start = function() {
     addListen();
     $('#test1')[0].checked ? turn = 'ai' : turn = "pl";
@@ -34,6 +60,12 @@ var aiTurn = function() {
         choise(5);
         return true;
     }
+    if (state[4] == 'ai' && ((state[0] == 'pl' && state[8] == 'pl') || (state[2] == 'pl' && state[6] == 'pl'))) {
+        if (state[1] == null) { choise(2); return true; }
+        if (state[3] == null) { choise(4); return true; }
+        if (state[5] == null) { choise(6); return true; }
+        if (state[7] == null) { choise(8); return true; }
+    }
     if (state[4] == 'ai' && (state[1] == 'pl' || state[3] == 'pl' || state[5] == 'pl' || state[7] == 'pl') &&
         (state[0] !== 'ai' && state[2] !== 'ai' && state[6] !== 'ai' && state[8] !== 'ai')) {
         if (state[1] == 'pl' && state[0] == null) { choise(1); return true; }
@@ -55,8 +87,8 @@ var aiTurn = function() {
         if (state[7] == 'pl' && state[6] == 'ai' && state[0] == null) { choise(1); return true; }
         if (state[7] == 'pl' && state[8] == 'ai' && state[2] == null) { choise(3); return true; }
     }
-    if (state[4] == 'pl' && (state[0] == 'pl' || state[2] == 'pl' || state[6] == 'pl' || state[8] == 'pl')) {
 
+    if (state[4] == 'pl' && (state[0] == 'pl' || state[2] == 'pl' || state[6] == 'pl' || state[8] == 'pl')) {
         if (state[0] == null) { choise(1); return true; }
         if (state[2] == null) { choise(3); return true; }
         if (state[6] == null) { choise(7); return true; }
@@ -68,80 +100,28 @@ var aiTurn = function() {
     return false;
 
 }
+var winStrategyCheck = function(arr) {
+    if (state[arr[0]] == state[arr[1]] && state[arr[0]] !== null && state[arr[2]] == null) {
+        let status = state[arr[0]] == 'ai' ? 'win' : 'lose';
+        return {
+            status: status,
+            result: arr[2] + 1
+        }
+    } else return null;
+}
 var winCheck = function() {
-    if (state[0] == state[1] && state[0] !== null && state[2] == null) {
-        return 3;
+    let result = {
+        lose: [],
+        win: []
     }
-    if (state[1] == state[2] && state[1] !== null && state[0] == null) {
-        return 1;
+    for (let i = 0; i < strategy.length; i++) {
+        let win = winStrategyCheck(strategy[i]);
+        if (win !== null) result[win.status].push(win.result);
     }
-    if (state[0] == state[2] && state[0] !== null && state[1] == null) {
-        return 2;
-    }
-    if (state[0] == state[3] && state[0] !== null && state[6] == null) {
-        return 7;
-    }
-    if (state[0] == state[6] && state[0] !== null && state[3] == null) {
-        return 4;
-    }
-    if (state[3] == state[6] && state[3] !== null && state[0] == null) {
-        return 1;
-    }
-    if (state[1] == state[4] && state[1] !== null && state[7] == null) {
-        return 8;
-    }
-    if (state[1] == state[7] && state[1] !== null && state[4] == null) {
-        return 5;
-    }
-    if (state[4] == state[7] && state[4] !== null && state[1] == null) {
-        return 2;
-    }
-    if (state[2] == state[5] && state[2] !== null && state[8] == null) {
-        return 9;
-    }
-    if (state[2] == state[8] && state[2] !== null && state[5] == null) {
-        return 6;
-    }
-    if (state[5] == state[8] && state[5] !== null && state[2] == null) {
-        return 3;
-    }
-    if (state[3] == state[4] && state[3] !== null && state[5] == null) {
-        return 6;
-    }
-    if (state[3] == state[5] && state[3] !== null && state[4] == null) {
-        return 5;
-    }
-    if (state[4] == state[5] && state[4] !== null && state[3] == null) {
-        return 4;
-    }
-    if (state[6] == state[7] && state[6] !== null && state[8] == null) {
-        return 9;
-    }
-    if (state[6] == state[8] && state[6] !== null && state[7] == null) {
-        return 8;
-    }
-    if (state[7] == state[8] && state[7] !== null && state[6] == null) {
-        return 7;
-    }
-    if (state[0] == state[4] && state[0] !== null && state[8] == null) {
-        return 9;
-    }
-    if (state[0] == state[8] && state[0] !== null && state[4] == null) {
-        return 5;
-    }
-    if (state[4] == state[8] && state[4] !== null && state[0] == null) {
-        return 1;
-    }
-    if (state[2] == state[4] && state[2] !== null && state[6] == null) {
-        return 7;
-    }
-    if (state[2] == state[6] && state[2] !== null && state[4] == null) {
-        return 5;
-    }
-    if (state[4] == state[6] && state[4] !== null && state[2] == null) {
-        return 3;
-    }
+    if (result.win.length > 0) return result.win[0];
+    if (result.lose.length > 0) return result.lose[0];
     return null;
+
 }
 
 var choise = function(num) {
@@ -161,46 +141,24 @@ var choise = function(num) {
         if (turn == "ai") aiTurn();
     }
 }
+var validateStrategy = function(arr) {
+    if (null !== state[arr[0]] && state[arr[0]] == state[arr[1]] && state[arr[0]] == state[arr[2]]) {
+        winRow(arr);
+        return false;
+    } else return true;
+}
 var check = function() {
-    if (null !== state[0] && state[0] == state[1] && state[0] == state[2]) {
-        winRow(0, 1, 2);
-        return false;
-    }
-    if (null !== state[0] && state[0] == state[3] && state[0] == state[6]) {
-        winRow(0, 3, 6);
-        return false;
-    }
-    if (null !== state[0] && state[0] == state[4] && state[0] == state[8]) {
-        winRow(0, 4, 8);
-        return false;
-    }
-    if (null !== state[3] && state[3] == state[4] && state[3] == state[5]) {
-        winRow(3, 4, 5);
-        return false;
-    }
-    if (null !== state[6] && state[6] == state[7] && state[6] == state[8]) {
-        winRow(6, 7, 8);
-        return false;
-    }
-    if (null !== state[1] && state[1] == state[4] && state[1] == state[7]) {
-        winRow(1, 4, 7);
-        return false;
-    }
-    if (null !== state[2] && state[2] == state[5] && state[2] == state[8]) {
-        winRow(2, 5, 8);
-        return false;
-    }
-    if (null !== state[2] && state[2] == state[4] && state[2] == state[6]) {
-        winRow(2, 4, 6);
-        return false;
+    for (let i = 0; i < strategy.length; i++) {
+        if (!validateStrategy(strategy[i])) return false;
     }
     return true;
+
 }
-var winRow = function(f, s, t) {
+var winRow = function(arr) {
     let color = turn == "ai" ? "red" : "green";
-    $(`.cell${f+1}`).addClass(`z-depth-3 ${color}`);
-    $(`.cell${s+1}`).addClass(`z-depth-3 ${color}`);
-    $(`.cell${t+1}`).addClass(`z-depth-3 ${color}`);
+    $(`.cell${arr[0]+1}`).addClass(`z-depth-3 ${color}`);
+    $(`.cell${arr[1]+1}`).addClass(`z-depth-3 ${color}`);
+    $(`.cell${arr[2]+1}`).addClass(`z-depth-3 ${color}`);
 }
 var finish = function(turn) {
     setTimeout(() => {
@@ -218,8 +176,12 @@ var addListen = function() {
 
 }
 var offListen = function() {
-    for (let i = 1; 1 < 10; i++) {
-        $(`.cell${i}`)[0].onclick = function() {}
+    for (let i = 1; i < 10; i++) {
+        try {
+            $(`.cell${i}`)[0].onclick = function() {}
+        } catch (er) {
+            console.log("Error in i = ", i)
+        }
     }
 
 }
