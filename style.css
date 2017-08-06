@@ -31,9 +31,9 @@
     margin-right: 10%;
 }
 
-.turnControll p:nth-child(2) {
+/*.turnControll p:nth-child(2) {
     margin-left: 10%;
-}
+}*/
 
 .green {
     background-color: green;
@@ -42,7 +42,9 @@
 .red {
     background-color: red;
 }
-
+label {
+    padding-left: 25px !important;
+}
 .title {
     width: 100%;
     display: flex;
@@ -50,7 +52,19 @@
     justify-content: center;
     align-items: center;
 }
-
+.wrapperControll {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.stepControll {
+    margin-right: 5%;
+}
+.diffControll {
+    margin-left: 5%;
+}
 .desk {
     /* width: 80%;
     height: 70%;*/

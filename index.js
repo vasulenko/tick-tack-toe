@@ -1,4 +1,5 @@
 var turn;
+var diff;
 var state = [null, null, null, null, null, null, null, null, null];
 var strategy = [
     [0, 1, 2],
@@ -28,7 +29,13 @@ var strategy = [
 ]
 var start = function() {
     addListen();
-    $('#test1')[0].checked ? turn = 'ai' : turn = "pl";
+    turn = $('#test1')[0].checked ? 'ai' : "pl";
+    if($('#diff1')[0].checked) {
+        diff = 0.3;
+    }
+    else {
+    diff = $('#diff2')[0].checked ? 0.2 : 0.1;
+    }
     $('#title')[0].innerHTML = 'GO!';
     $("#startBtn").remove();
     let el = document.createElement('button');
@@ -41,7 +48,13 @@ var start = function() {
     if (turn == "ai") aiTurn();
     $("#refresh").click(function() {
         $('#title')[0].innerHTML = 'GO!';
-        $('#test1')[0].checked ? turn = 'ai' : turn = "pl";
+        turn = $('#test1')[0].checked ?  'ai' : "pl";
+        if($('#diff1')[0].checked) {
+            diff = 0.3;
+        }
+        else {
+            diff = $('#diff2')[0].checked ? 0.2 : 0.1;
+        }
         $('.material-icons').remove();
         $('.root').removeClass("z-depth-3 green red");
         addListen();
@@ -50,7 +63,18 @@ var start = function() {
         if (turn == "ai") aiTurn();
     });
 }
+var mistake = function(){
+    if(Math.random() < diff) {
+        return state.indexOf(null);
+    }
+    return null;
+}
 var aiTurn = function() {
+    let mist = mistake();
+    if(mist !== null) {
+        choise(mist + 1);
+        return true;
+    }
     let next = winCheck();
     if (next !== null) {
         choise(next);
@@ -136,7 +160,7 @@ var choise = function(num) {
         finish(turn);
     } else {
         if (state.indexOf(null) == -1) { finish("No one"); return; };
-        turn == "ai" ? turn = "pl" : turn = "ai";
+        turn = turn == "ai" ?  "pl" : "ai";
         $('#title')[0].innerHTML = turn == 'ai' ? "AI is turn now." : "Player turn!";
         if (turn == "ai") aiTurn();
     }

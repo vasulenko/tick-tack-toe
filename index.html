@@ -17,7 +17,9 @@
     <div class="wrapper">
         <div class="title">
             <h1 id="title">Start?</h1>
-            <div class="turnControll">
+            <div class="wrapperControll">
+            <div class="stepControll">
+                <h5>First&nbsp;step&nbsp;:</h5>
                 <p>
                     <input name="group1" type="radio" id="test1" checked/>
                     <label for="test1">AI</label>
@@ -27,6 +29,22 @@
                     <label for="test2">Player</label>
                 </p>
             </div>
+            <div class="diffControll">
+                <h5>Difficult&nbsp;:</h5>
+                <p>
+                    <input name="diff1" type="radio" id="diff1" checked/>
+                    <label for="diff1">Easy</label>
+                </p>
+                <p>
+                    <input name="diff1" type="radio" id="diff2" />
+                    <label for="diff2">Medium</label>
+                </p>
+                <p>
+                    <input name="diff1" type="radio" id="diff3" />
+                    <label for="diff3">Hard</label>
+                </p>
+            </div>
+        </div>
             <button id="startBtn" class="waves-effect waves-light btn cyan pulse" onclick="start()">GO!</button>
         </div>
         <div class="desk z-depth-3">
