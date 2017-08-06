@@ -8,7 +8,10 @@
 .material-icons {
     font-size: 100px;
 }
-
+h1#title {
+    margin: 0;  
+    margin-top: 2%; 
+}
 .wrapper {
     height: 95vh;
     width: 95wh;
